@@ -1,0 +1,9 @@
+.dark-mode .custom-control-label::before, .dark-mode .custom-file-label, .dark-mode .custom-file-label::after, .dark-mode .custom-select, .dark-mode .form-control, .dark-mode .input-group-text {
+    background-color: #ffffff !important;
+    color: #353333;
+}
+
+.grande{
+
+    text-transform: uppercase !important;
+}
