@@ -93,7 +93,7 @@ foreach ($paginas as $key => $pagina) {
         <form method="get">
           <h3 class="card-title">
             <div class="input-group input-group-sm" style="width: 350px;">
-              <input type="text" name="buscar" class="form-control float-right" placeholder="Pesquisar...." autofocus>
+              <input type="text" name="barra" class="form-control float-right" placeholder="Pesquisar...." autofocus>
 
               <div class="input-group-append">
                 <button type="submit" class="btn btn-primary">
