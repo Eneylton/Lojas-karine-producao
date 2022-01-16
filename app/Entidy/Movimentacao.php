@@ -10,6 +10,7 @@ class Movimentacao
 {
 
     public $id;
+    public $data;
     public $valor;
     public $troco;
     public $descricao;
@@ -18,6 +19,7 @@ class Movimentacao
     public $usuarios_id;
     public $catdespesas_id;
     public $forma_pagamento_id;
+    public $caixa_id ;
 
     public function cadastar()
     {
@@ -28,13 +30,15 @@ class Movimentacao
         $this->id = $obdataBase->insert([
 
             'valor'                 => $this->valor,
+            'data'                  => $this->data,
             'troco'                 => $this->troco,
             'forma_pagamento_id'    => $this->forma_pagamento_id,
             'tipo'                  => $this->tipo,
             'status'                => $this->status,
             'descricao'             => $this->descricao,
             'usuarios_id'           => $this->usuarios_id,
-            'catdespesas_id'        => $this->catdespesas_id
+            'catdespesas_id'        => $this->catdespesas_id,
+            'caixa_id '             => $this->caixa_id 
 
         ]);
 
@@ -47,13 +51,15 @@ class Movimentacao
         return (new Database('movimentacoes'))->update('id = ' . $this->id, [
 
             'valor'                 => $this->valor,
+            'data'                  => $this->data,
             'troco'                 => $this->troco,
             'forma_pagamento_id'    => $this->forma_pagamento_id,
             'tipo'                  => $this->tipo,
             'status'                => $this->status,
             'descricao'             => $this->descricao,
             'usuarios_id'           => $this->usuarios_id,
-            'catdespesas_id'        => $this->catdespesas_id
+            'catdespesas_id'        => $this->catdespesas_id,
+            'caixa_id '             => $this->caixa_id
         ]);
     }
 

@@ -2,11 +2,18 @@
 
 require __DIR__.'../../../vendor/autoload.php';
 
+
 use App\Session\Login;
 use App\Entidy\Movimentacao;
 
 $alertaLogin  = '';
 $alertaCadastro = '';
+
+if(isset($_POST['idcaixa'])){
+
+    $idcaixa = $_POST['idcaixa'];
+ 
+}
 
 $usuariologado = Login:: getUsuarioLogado();
 
@@ -30,9 +37,10 @@ if(isset($_POST['forma_pagamento_id'])){
     $item->forma_pagamento_id = $_POST['forma_pagamento_id'];
     $item->valor = $preco;
     $item->data = $_POST['data'];
+    $item->caixa_id  = $idcaixa;
     $item->cadastar();
 
-    header('location: movimentacao-list.php?status=success');
+    header('location: movimentacao-list.php?id='.$idcaixa);
     exit;
 }
 

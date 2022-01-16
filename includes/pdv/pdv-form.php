@@ -4,6 +4,28 @@ $listProdutos  = '';
 $resultados    = '';
 $result_cli    = '';
 
+$caixa_id      = 0;
+
+if (isset($_GET['id_caixa'])) {
+  
+  $caixa_id = $_GET['id_caixa'];
+  $data = $_GET['data'];
+
+  $_SESSION['caixa'] = array();
+
+  array_push(
+    $_SESSION['caixa'],
+
+    array(
+
+      'caixa_id'             =>  $caixa_id,
+      'data'                 =>  $data
+
+    )
+  );
+}
+
+
 foreach ($clientes as $item) {
 
   $result_cli .= '
@@ -16,12 +38,10 @@ foreach ($clientes as $item) {
 foreach ($listar as $item) {
 
   if (empty($item->foto)) {
-
-    $foto = './imgs/sem.jpg';
-  } else {
-
+    $foto = './imgs/sem-foto.jpg';
+ } else {
     $foto = $item->foto;
-  }
+ }
 
   $listProdutos .= '
                 <tr>
@@ -93,7 +113,7 @@ foreach ($paginas as $key => $pagina) {
         <form method="get">
           <h3 class="card-title">
             <div class="input-group input-group-sm" style="width: 350px;">
-              <input type="text" name="barra" class="form-control float-right" placeholder="Pesquisar...." autofocus>
+              <input type="text" name="buscar" class="form-control float-right" placeholder="Pesquisar...." autofocus>
 
               <div class="input-group-append">
                 <button type="submit" class="btn btn-primary">
@@ -297,10 +317,10 @@ foreach ($paginas as $key => $pagina) {
 
         <hr>
         <form action="venda.php" method="post">
-
+       
           <div class="row">
             <div class="col-8">
-              <select class="form-control select2" name="clientes_id" required>
+              <select class="form-control select2" name="clientes_id">
                 <option value="">Selecione um cliente</option>
 
 

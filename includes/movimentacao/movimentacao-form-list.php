@@ -1,5 +1,11 @@
 <?php
 
+if(isset($_GET['id'])){
+
+   $idcaixa = $_GET['id'];
+
+}  
+
 $despesa  = 0;
 $receita  = 0;
 $valor1  = 0;
@@ -155,7 +161,7 @@ foreach ($listar as $item) {
 }
 
 $resultados = strlen($resultados) ? $resultados : '<tr>
-                                                     <td colspan="8" class="text-center" > Nenhuma Vaga Encontrada !!!!! </td>
+                                                     <td colspan="9" class="text-center" > Nenhuma movimentação Encontrada !!!!! </td>
                                                      </tr>';
 
 
@@ -218,14 +224,16 @@ foreach ($paginas as $key => $pagina) {
                      <tr>
                            <td colspan="9">
                               <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"> <i class="fas fa-plus"></i> &nbsp; Adicionar</button>
+                              
+                              <a href="movimentacao-detalhe.php?id=<?= $idcaixa ?>">
+                                 <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total_diaria <= 0 ? 'btn btn-danger' : 'btn btn-default' ?> float-right btn-lg"> <i class="fa fa-print" aria-hidden="true"></i>
+                                    FECHAMENTO </button>
+                              </a>
                               <button type="submit" style="margin-right:50px; font-weight:600; font-size:x-large" class="btn btn-default float-right" data-toggle="modal" data-target="#modal-data"> <i class="fa fa-print"></i> &nbsp; RELATÓRIOS</button>
                               <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total <= 0 ? 'btn btn-danger' : 'btn btn-success' ?> float-right btn-lg"><i class="fa fa-arrow-right" aria-hidden="true"></i>
                                  R$ <?= number_format($total, "2", ",", ".")  ?></button>
 
-                              <a href="gerar-pdf.php" target="_blank">
-                                 <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total_diaria <= 0 ? 'btn btn-danger' : 'btn btn-default' ?> float-right btn-lg"> <i class="fa fa-print" aria-hidden="true"></i>
-                                    FECHAMENTO </button>
-                              </a>
+                              
 
 
                            </td>
@@ -283,7 +291,7 @@ foreach ($paginas as $key => $pagina) {
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <form action="./movimentacao-insert.php" method="post">
-
+              <input type="hidden" name="idcaixa" value="<?=  $idcaixa ?>">
             <div class="modal-header">
                <h4 class="modal-title">MOVIMENTAR
                </h4>

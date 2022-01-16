@@ -10,6 +10,7 @@ class Venda
 {
 
     public $id;
+    public $data;
     public $codigo;
     public $usuarios_id;
     public $clientes_id;
@@ -28,6 +29,7 @@ class Venda
         $this->id = $obdataBase->insert([
 
             'codigo'                    => $this->codigo,
+            'data'                      => $this->data,
             'usuarios_id'               => $this->usuarios_id,
             'clientes_id'               => $this->clientes_id,
             'forma_pagamento_id'        => $this->forma_pagamento_id,
@@ -45,8 +47,9 @@ class Venda
     public function atualizar()
     {
         return (new Database('vendas'))->update('id = ' . $this->id, [
-
+            
             'codigo'                    => $this->codigo,
+            'data'                      => $this->data,
             'usuarios_id'               => $this->usuarios_id,
             'clientes_id'               => $this->clientes_id,
             'forma_pagamento_id'        => $this->forma_pagamento_id,

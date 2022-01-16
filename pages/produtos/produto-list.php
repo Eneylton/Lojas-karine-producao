@@ -1,10 +1,10 @@
 <?php
 require __DIR__ . '../../../vendor/autoload.php';
 
-use  \App\Db\Pagination;
+use App\Db\Pagination;
 use App\Entidy\Categoria;
-use   App\Entidy\Produto;
-use   \App\Session\Login;
+use App\Entidy\Produto;
+use App\Session\Login;
 
 define('TITLE','Lista de Produtos');
 define('BRAND','Produtos');
@@ -132,7 +132,7 @@ $("#valor_compra").on("change", function(){
             id:idCompra
         },
         success: function(data){
-            $('#valor_venda').val(Number((idCompra) / 0.40).toFixed(2));
+            $('#valor_venda').val(Number((idCompra) / 0.50).toFixed(2));
         }
 
     })
@@ -153,7 +153,7 @@ $("#compra1").on("change", function(){
             id:idCompra
         },
         success: function(data){
-            $('#venda1').val(Number((idCompra) / 0.40).toFixed(2));
+            $('#venda1').val(Number((idCompra) / 0.50).toFixed(2));
         }
 
     })

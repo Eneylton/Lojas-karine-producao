@@ -22,7 +22,7 @@ if(!isset($_GET['id']) or !is_numeric($_GET['id'])){
 }
 
 
-$value = Clientes:: getID('*','cargos',$_GET['id'],null,null);
+$value = Clientes:: getID('*','clientes',$_GET['id'],null,null);
 
 
 if(!$value instanceof Clientes){
@@ -35,16 +35,16 @@ if(!$value instanceof Clientes){
 
 if(isset($_GET['nome'])){
     
-    $item->nome             = $_GET['nome'];
-    $item->telefone         = $_GET['telefone'];
-    $item->email            = $_GET['email'];
-    $item->localidade       = $_GET['localidade'];
-    $item->logradouro       = $_GET['logradouro'];
+    $value->nome             = $_GET['nome'];
+    $value->telefone         = $_GET['telefone'];
+    $value->email            = $_GET['email'];
+    $value->localidade       = $_GET['localidade'];
+    $value->logradouro       = $_GET['logradouro'];
     $value->complemento     = $_GET['complemento'];
-    $item->numero           = $_GET['numero'];
-    $item->bairro           = $_GET['bairro'];
-    $item->cep              = $_GET['cep'];
-    $item->uf               = $_GET['uf'];
+    $value->numero           = $_GET['numero'];
+    $value->bairro           = $_GET['bairro'];
+    $value->cep              = $_GET['cep'];
+    $value->uf               = $_GET['uf'];
     $value-> atualizar();
 
     header('location: clientes-list.php?status=edit');

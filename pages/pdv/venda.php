@@ -6,6 +6,8 @@ use App\Entidy\Clientes;
 use App\Entidy\FormaPagamento;
 use App\Session\Login;
 
+$subtotal_desconto=0;
+
 $usuariologado = Login::getUsuarioLogado();
 
 $usuarios_id = $usuariologado['id'];
@@ -38,14 +40,21 @@ $troco = 0;
 $desconto = 0;
 $subtotal_desconto = 0;
 $form_pag = 0;
+$cliente_id = "";
 
 if (isset($_POST['receber'])) {
+
+  if (isset($_POST['cliente_id'])) {
+   $cliente_id = $_POST['cliente_id'];
+  }else{
+    $cliente_id = 18;
+  }
 
     $form_pag = $_POST['formaPagamento_id'];
 
     $valor_recebido = $_POST['receber'];
 
-    $clientes   = Clientes :: getID('*','clientes',$_POST['clientes_id'],null,null);
+    $clientes   = Clientes :: getID('*','clientes',$cliente_id,null,null);
 
     $clienteId = $clientes->id;
     $clienteNome = $clientes->nome;

@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'BarcodeFont';
+    src: url('/BarcodeFont.ttf') format('truetype');
+    font: normal 12px / 20px BarcodeFont;
+    ;
+}
+
+
+
+
+.grande{
+
+    text-transform: uppercase !important;
+}
+
+.barra{
+    font-family: 'Libre Barcode 39 Extended Text', cursive !important;
+}
+
+.eneylton{
+    color:#ff004c !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    font-family: 'BarcodeFont' !important;
+}

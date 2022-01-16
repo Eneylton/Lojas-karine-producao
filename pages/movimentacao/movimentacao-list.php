@@ -12,6 +12,12 @@ define('BRAND','Financeiro');
 
 Login::requireLogin();
 
+if(isset($_GET['id'])){
+
+    $idcaixa = $_GET['id'];
+ 
+}  
+
 $buscar = filter_input(INPUT_GET, 'buscar', FILTER_SANITIZE_STRING);
 $filtroStatus = filter_input(INPUT_GET, 'filtroStatus', FILTER_SANITIZE_STRING);
 $filtroStatus = in_array($filtroStatus,['0','1']) ? $filtroStatus : '';
@@ -44,7 +50,7 @@ $listar = Movimentacao::getList('   m.id AS id,m.usuarios_id AS usuarios_id,m.ca
                                                             
                                     'movimentacoes AS m INNER JOIN usuarios AS u ON (m.usuarios_id = u.id) INNER JOIN
                                      catdespesas AS c ON (m.catdespesas_id = c.id) INNER JOIN forma_pagamento AS f ON (m.forma_pagamento_id = f.id)',
-                                     $where, 'm.id DESC',$pagination->getLimit());
+                                     'm.caixa_id='. $idcaixa, 'm.id DESC',$pagination->getLimit());
 
 $categorias = Catdespesa :: getList('*','catdespesas');
 $pagamentos = FormaPagamento :: getList('*','forma_pagamento');

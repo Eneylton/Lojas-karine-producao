@@ -19,7 +19,12 @@ if (!isset($_POST['id']) or !is_numeric($_POST['id'])) {
     exit;
 }
 
-$foto = $_POST['foto'];
+if (isset($_FILES['foto'])){
+
+    $foto = $_POST['foto'];
+
+}
+
 
 $value = Produto::getID('*','produtos',$_POST['id'],null,null);
 
@@ -41,7 +46,13 @@ if (isset($_FILES['arquivo'])) {
 
         if (isset($_POST['categorias_id'])) {
 
-            $value->categorias_id = $_POST['categorias_id'];
+            $value->barra                 = $_POST['barra'];
+            $value->nome                  = $_POST['nome'];
+            $value->valor_compra          = $_POST['valor_compra'];
+            $value->valor_venda           = $_POST['valor_venda'];
+            $value->estoque               = $_POST['estoque'];
+            $value->aplicacao             = $_POST['aplicacao'];
+            $value->categorias_id         = $_POST['categorias_id'];
             $value->foto = $obUpload->getBasename();
             $value->atualizar();
 
@@ -55,8 +66,14 @@ if (isset($_FILES['arquivo'])) {
 
             if (isset($_POST['categorias_id'])) {
 
-                $value->categorias_id = $_POST['categorias_id'];
-                $value->atualizar();
+                $value->barra                 = $_POST['barra'];
+                $value->nome                  = $_POST['nome'];
+                $value->valor_compra          = $_POST['valor_compra'];
+                $value->valor_venda           = $_POST['valor_venda'];
+                $value->estoque               = $_POST['estoque'];
+                $value->aplicacao             = $_POST['aplicacao'];
+                $value->categorias_id         = $_POST['categorias_id'];
+                $value->atualizar(); 
 
                 header('location: produto-list.php?status=success');
 

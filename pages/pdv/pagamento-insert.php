@@ -53,6 +53,17 @@ if (isset($_SESSION['dados-adicionais'])) {
     }
 }
 
+if (isset($_SESSION['caixa'])) {
+
+    foreach ($_SESSION['caixa'] as $item) {
+
+
+        $caixa_id           = $item['caixa_id'];
+        $data               = $item['data'];
+      
+    }
+}
+
 if (isset($_SESSION['pagamento-insert'])) {
 
     foreach ($_SESSION['pagamento-insert'] as $item) {
@@ -118,6 +129,8 @@ if (isset($_SESSION['pagamento-insert'])) {
             $moviment->usuarios_id             = $usuarios_id;
             $moviment->catdespesas_id          = 15;
             $moviment->forma_pagamento_id      = $pagamento;
+            $moviment->caixa_id                = $caixa_id ;
+            $moviment->data                    = $data ;
             $moviment->cadastar();
 
             break;
@@ -133,6 +146,8 @@ if (isset($_SESSION['pagamento-insert'])) {
             $moviment->usuarios_id             = $usuarios_id;
             $moviment->catdespesas_id          = 15;
             $moviment->forma_pagamento_id      = $pagamento;
+            $moviment->caixa_id                = $caixa_id ;
+            $moviment->data                    = $data ;
             $moviment->cadastar();
 
             break;
@@ -148,6 +163,8 @@ if (isset($_SESSION['pagamento-insert'])) {
             $moviment->usuarios_id             = $usuarios_id;
             $moviment->catdespesas_id          = 15;
             $moviment->forma_pagamento_id      = $pagamento;
+            $moviment->caixa_id                = $caixa_id ;
+            $moviment->data                    = $data ;
             $moviment->cadastar();
 
             break;
@@ -163,6 +180,8 @@ if (isset($_SESSION['pagamento-insert'])) {
             $moviment->usuarios_id             = $usuarios_id;
             $moviment->catdespesas_id          = 15;
             $moviment->forma_pagamento_id      = $pagamento;
+            $moviment->caixa_id                = $caixa_id ;
+            $moviment->data                    = $data ;
             $moviment->cadastar();
 
             break;
@@ -178,6 +197,8 @@ if (isset($_SESSION['pagamento-insert'])) {
             $moviment->usuarios_id             = $usuarios_id;
             $moviment->catdespesas_id          = 15;
             $moviment->forma_pagamento_id      = $pagamento;
+            $moviment->caixa_id                = $caixa_id ;
+            $moviment->data                    = $data ;
             $moviment->cadastar();
 
             break;
@@ -194,6 +215,8 @@ if (isset($_SESSION['pagamento-insert'])) {
             $moviment->usuarios_id             = $usuarios_id;
             $moviment->catdespesas_id          = 15;
             $moviment->forma_pagamento_id      = $pagamento;
+            $moviment->caixa_id                = $caixa_id ;
+            $moviment->data                    = $data ;
             
             $moviment->cadastar();
 
@@ -210,6 +233,8 @@ if (isset($_SESSION['pagamento-insert'])) {
                 $moviment->usuarios_id             = $usuarios_id;
                 $moviment->catdespesas_id          = 15;
                 $moviment->forma_pagamento_id      = $pagamento;
+                $moviment->caixa_id                = $caixa_id ;
+                $moviment->data                    = $data ;
                 $moviment->cadastar();
     
                 break;
@@ -259,7 +284,7 @@ if (isset($_SESSION['pagamento-insert'])) {
     unset($_SESSION['dados-venda']);
     unset($_SESSION['pagamento-insert']);
 
-    header('location: pdv.php?status=success');
+    header('location: pdv.php?caixa_id='.$caixa_id);
 
     exit;
 }

@@ -103,7 +103,7 @@ class Produto
 
     public static function getBarra($fields, $table, $where, $order, $limit)
     {
-        return (new Database('produtos'))->select($fields, $table, 'barra = ' . $where, $order, $limit)
+        return (new Database('produtos'))->select2($fields, $table, 'barra LIKE "%' . $where, $order, $limit)
             ->fetchObject(self::class);
     }
 

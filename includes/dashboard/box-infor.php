@@ -295,7 +295,7 @@ $acesso = $usuariologado['acessos_id'];
                   <div class="d-flex">
                      <p class="d-flex flex-column">
                         <span class="text-bold text-lg">R$ &nbsp; </span>
-                        <span>Acumulado no mês</span>
+                        <span style="color:#ff0000" class="grande">Acumulado no mês</span>
                      </p>
                      <p class="ml-auto d-flex flex-column text-right">
                         <span class="text-info">

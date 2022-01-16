@@ -56,7 +56,7 @@ $resultados = '';
 foreach ($listar as $item) {
 
    if (empty($item->foto)) {
-      $foto = 'imgs/sem.jpg';
+      $foto = './imgs/sem-foto.jpg';
    } else {
       $foto = $item->foto;
    }
@@ -77,15 +77,16 @@ foreach ($listar as $item) {
                      
                       
                       <td><img style="width:80px; heigth:70px" src="../.' . $foto . '" class="img-thumbnail"></td>
-                      <td style="text-transform: uppercase; font-size:14px">' . $item->categoria . '</td>
+                      <td style="text-align:center;text-transform: uppercase; font-size:13px"><span>'.$item->nome.' - <span style="font-size:20px"> R$ '.number_format($item->valor_venda, "2", ",", ".").'</span><p> <span style="font-size:70px"" class="barra">'. $item->barra . '</span></td>
                       <td style="text-transform: uppercase; font-size:14px">' . $item->nome . '</td>
+                      <td style="text-transform: uppercase; font-size:14px" class="">' . $item->categoria . '</td>
                       <td style="text-align:center">
                         
                         <span style="font-size:16px" class="' . ($item->estoque <= 3 ? 'badge badge-danger' : 'badge badge-primary') . '">' . $item->estoque . '</span>
                         
                       </td>
-                      <td> <button type="button" class="btn btn-warning x-small"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</button></td>
-                      <td> <button type="button" class="btn btn-info x-small"> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</button></td>
+                      <td> <button style="font-weight:600; font-size:28px" type="button" class="btn btn-warning"> R$ ' . number_format($item->valor_compra, "2", ",", ".") . '</button></td>
+                      <td> <button style="font-weight:600; font-size:28px" type="button" class="btn btn-info"> R$ ' . number_format($item->valor_venda, "2", ",", ".") . '</button></td>
                     
 
                       <td style="text-align: center;">
@@ -103,7 +104,7 @@ foreach ($listar as $item) {
 }
 
 $resultados = strlen($resultados) ? $resultados : '<tr>
-                                                     <td colspan="7" class="text-center" > Nenhuma Vaga Encontrada !!!!! </td>
+                                                     <td colspan="8" class="text-center" > Nenhuma Vaga Encontrada !!!!! </td>
                                                      </tr>';
 
 
@@ -183,25 +184,29 @@ foreach ($paginas as $key => $pagina) {
                   </form>
                </div>
 
-               <div class="table-responsive">
+          
 
                   <table class="table table-bordered table-dark table-bordered table-hover table-striped">
                      <thead>
-                     <tr>
-                              <td colspan="7">
-                                 <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#modal-default" > <i class="fas fa-plus"></i> &nbsp; Novo</button>
-                                  
-                                 <button type="submit" class="btn btn-default float-right" data-toggle="modal" data-target="#modal-data"> <i class="fas fa-print"></i> &nbsp; IMPRIMIR RELATÓRIOS</button>
+                        <tr>
+                           <td colspan="8">
+                              <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#modal-default"> <i class="fas fa-plus"></i> &nbsp; Novo</button>
 
+                              <button type="submit" class="btn btn-default float-right" data-toggle="modal" data-target="#modal-data"> <i class="fas fa-print"></i> &nbsp; IMPRIMIR RELATÓRIOS</button>
+                              
+                              
+                              <button type="submit" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-data2"> <i class="fas fa-barcode"></i> &nbsp; GERAR COD/BARRAS</button>
 
-                              </td>
-                           </tr>
+                           </td>
+                        </tr>
 
                         <tr>
-                           <th> IMAGEM </th>
-                          
-                           <th> CATEGORIAS </th>
+                           
+                           <th> IMG </th>
+                           <th> COD BARRAS </th>
+
                            <th> NOME DO PRODUTO </th>
+                           <th> CATEGORIAS </th>
                            <th style="text-align:center"> ESTOQUE </th>
                            <th> COMPRA </th>
                            <th> VENDA </th>
@@ -214,7 +219,6 @@ foreach ($paginas as $key => $pagina) {
 
                   </table>
 
-               </div>
 
 
             </div>
@@ -327,7 +331,7 @@ foreach ($paginas as $key => $pagina) {
                   <div class="col-8">
                      <div class="form-group">
                         <label>Descrição</label>
-                        <textarea class="form-control" name="aplicacao" cols="60" rows="5"  style="text-transform: uppercase;"></textarea>
+                        <textarea class="form-control" name="aplicacao" cols="60" rows="5" style="text-transform: uppercase;"></textarea>
                      </div>
 
                   </div>
@@ -414,7 +418,7 @@ foreach ($paginas as $key => $pagina) {
                   <div class="col-6">
                      <div class="form-group">
                         <label>Nome do produto</label>
-                        <input type="text" class="form-control" name="nome" id="nome"  style="text-transform: uppercase;">
+                        <input type="text" class="form-control" name="nome" id="nome" style="text-transform: uppercase;">
                      </div>
 
                   </div>
@@ -450,7 +454,7 @@ foreach ($paginas as $key => $pagina) {
                   <div class="col-8">
                      <div class="form-group">
                         <label>Descrição</label>
-                        <textarea class="form-control" name="aplicacao" cols="60" rows="5" id="aplicacao"  style="text-transform: uppercase;"></textarea>
+                        <textarea class="form-control" name="aplicacao" cols="60" rows="5" id="aplicacao" style="text-transform: uppercase;"></textarea>
                      </div>
 
                   </div>
@@ -472,71 +476,140 @@ foreach ($paginas as $key => $pagina) {
 </div>
 
 <div class="modal fade" id="modal-data">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content ">
-            <form action="./produto-gerar.php" method="GET" enctype="multipart/form-data">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+         <form action="./produto-gerar.php" method="GET" enctype="multipart/form-data">
 
-               <div class="modal-header">
-                  <h4 class="modal-title">Relatórios
-                  </h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-               <div class="card-body">
+            <div class="modal-header">
+               <h4 class="modal-title">Relatórios
+               </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="card-body">
 
-                  <div class="form-group">
-
-                     <div class="row">
-
-                        <div class="col-lg-4 col-4">
-                           <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataInicio">
-                        </div>
-
-
-                        <div class="col-lg-4 col-4">
-                           <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataFim">
-                        </div>
-
-
-                        <div class="col-lg-4 col-4">
-
-                           <select class="form-control select" name="categorias_id">
-                              <option value=""> Categorias </option>
-                              <?php
-
-                              foreach ($categorias as $item) {
-                                 echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                              }
-                              ?>
-
-                           </select>
-
-                        </div>
-
-                     </div>
-                  </div>
+               <div class="form-group">
 
                   <div class="row">
-                  <div class="col-lg-8 col-8">
-                        <input placeholder="Nome do produto" class="form-control" type="text" name="nome">
-                     </div>
 
                      <div class="col-lg-4 col-4">
-                        <input placeholder="Código de barras" class="form-control" type="text" name="barra">
+                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataInicio">
+                     </div>
+
+
+                     <div class="col-lg-4 col-4">
+                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataFim">
+                     </div>
+
+
+                     <div class="col-lg-4 col-4">
+
+                        <select class="form-control select" name="categorias_id" >
+                           <option value=""> Categorias </option>
+                           <?php
+
+                           foreach ($categorias as $item) {
+                              echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
+
                      </div>
 
                   </div>
                </div>
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                  <button type="submit" class="btn btn-primary">Gerar relatório</button>
+
+               <div class="row">
+                  <div class="col-lg-8 col-8">
+                     <input placeholder="Nome do produto" class="form-control" type="text" name="nome">
+                  </div>
+
+                  <div class="col-lg-4 col-4">
+                     <input placeholder="Código de barras" class="form-control" type="text" name="barra">
+                  </div>
+
+               </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+               <button type="submit" class="btn btn-primary">Gerar relatório</button>
+            </div>
+
+         </form>
+
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-data2">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+         <form action="../../pages/codbarras/index.php" method="GET" enctype="multipart/form-data">
+
+            <div class="modal-header">
+               <h4 class="modal-title">Relatórios
+               </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="card-body">
+
+               <div class="form-group">
+
+                  <div class="row">
+
+                     <div class="col-lg-4 col-4">
+                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataInicio">
+                     </div>
+
+
+                     <div class="col-lg-4 col-4">
+                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataFim">
+                     </div>
+
+
+                     <div class="col-lg-4 col-4">
+
+                        <select class="form-control select" name="categorias_id">
+                           <option value=""> Categorias </option>
+                           <?php
+
+                           foreach ($categorias as $item) {
+                              echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
+                           }
+                           ?>
+
+                        </select>
+
+                     </div>
+
+                  </div>
                </div>
 
-            </form>
+               <div class="row">
+                  <div class="col-lg-8 col-8">
+                     <input placeholder="Nome do produto" class="form-control" type="text" name="nome">
+                  </div>
 
-         </div>
-         <!-- /.modal-content -->
+                  <div class="col-lg-4 col-4">
+                     <input placeholder="Código de barras" class="form-control" type="text" name="barra">
+                  </div>
+
+               </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+               <button type="submit" class="btn btn-primary">Gerar relatório</button>
+            </div>
+
+         </form>
+
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
    </div>
+   <!-- /.modal-dialog -->
+</div>

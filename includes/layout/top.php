@@ -89,8 +89,10 @@ $usuario = $usuariologado ?
                     }
 
                     ?>" style="display: none;">
-          <a href="../../pages/pdv/pdv.php" class="nav-link">Caixa</a>
+          <a href="../../pages/caixa/caixa-list.php" class="nav-link">Caixa</a>
         </li>
+
+      
 
 
 

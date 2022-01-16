@@ -48,17 +48,25 @@ if (isset($_GET['status'])) {
 
 }
 
+$foto = "";
+
 $resultados = '';
 
 foreach ($listar as $item) {
 
+   if (empty($item->foto)) {
+      $foto = './imgs/sem-foto.jpg';
+   } else {
+      $foto = $item->foto;
+   }
+
    $resultados .= '<tr>
-                      <td style="display:none">' . $item->id . '</td>
+                         <td style="display:none">' . $item->id . '</td>
                       <td style="display:none">' . $item->nome . '</td>
                       <td style="display:none">' . $item->foto . '</td>
-                      <td><img style="width:80px; heigth:70px" src="../.' . $item->foto . '" class="img-thumbnail"></td>
+                      <td><img style="width:80px; heigth:70px" src="../.' . $foto . '" class="img-thumbnail"></td>   
                   
-                      <td style="text-transform:Uppercase;">' . $item->nome . '</td>
+                      <td style="text-transform:Uppercase;" >' . $item->nome . '</td>
                     
                       <td style="text-align: center;">
                         
@@ -78,7 +86,7 @@ foreach ($listar as $item) {
 }
 
 $resultados = strlen($resultados) ? $resultados : '<tr>
-                                                     <td colspan="6" class="text-center" > Nenhuma Vaga Encontrada !!!!! </td>
+                                                     <td colspan="6" class="text-center" > Nenhuma categoria cadastrada !!!!! </td>
                                                      </tr>';
 
 

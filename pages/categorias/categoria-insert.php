@@ -40,3 +40,15 @@ if(isset($_FILES['arquivo'])){
     }
 
 }
+
+if(isset($_POST['nome'])){
+
+
+    $item = new Categoria;
+    $item->nome = $_POST['nome'];
+    $item->foto = "";
+    $item->cadastar();
+
+    header('location: categoria-list.php?status=success');
+    exit;
+}

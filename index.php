@@ -72,7 +72,7 @@ usuarios AS u ON (m.usuarios_id = u.id)', 'm.tipo = 1 AND m.status = 0', null, n
 
 $recebimento = $receb->receber;
 
-$invent = Movimentacao::getListOne('sum(p.valor_venda) as total', 'produtos as p ', 'month(p.data) = MONTH(CURRENT_DATE())', null, null);
+$invent = Movimentacao::getListOne('sum(p.valor_venda) as total', 'produtos as p ', null, null, null);
 
 $inventario = $invent->total;
 
@@ -91,7 +91,7 @@ when 9 then "Setembro"
 when 10 then "Outubro"
 when 11 then "Novembro"
 when 12 then "Dezembro"
-END) AS mes, SUM(p.valor_venda) as total', 'produtos as p group by MONTH(p.data)', null, null, null);
+END) AS mes, SUM(p.valor) as total', 'movimentacoes as p group by MONTH(p.data)', null, null, null);
 
 include __DIR__ . '/includes/dashboard/header.php';
 include __DIR__ . '/includes/dashboard/top.php';

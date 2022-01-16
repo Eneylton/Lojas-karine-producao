@@ -257,7 +257,7 @@ foreach ($listar as $item) {
 
     <table>
         <tbody>
-            <tr style="background-color:#ff0000; color:#fff">
+            <tr style="background-color:#fb9ada; border:1px solid #fb9ada; color:#fff">
                 <td style="text-align: center; text-transform:uppercase" colspan="9">HISTÓRICO</td>
             </tr>
 
@@ -279,7 +279,7 @@ foreach ($listar as $item) {
 
             <?= $result ?>
 
-                <tr style="background-color: #0e8219; color:#fff">
+                <tr style="background-color: #fb9ada; color:#ff0000">
                 <td colspan="7" style="text-align: right;">
                 <span style="font-size: 16px; font-weight:600"> TOTAL &nbsp; &nbsp;</span>
                 </td>

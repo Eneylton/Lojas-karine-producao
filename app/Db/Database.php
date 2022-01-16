@@ -73,6 +73,17 @@ class Database
 
         return $this->execute($query);
     }
+    public function select2($fields = null, $table = null, $where = null, $order = null, $limit = null)
+    {
+
+        $where = strlen($where) ? 'WHERE ' . $where : '';
+        $order = strlen($order) ? 'ORDER BY ' . $order : '';
+        $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
+
+        $query = 'SELECT ' . $fields . ' FROM ' . $table . ' ' . $where . '%"' . $order . ' ' . $limit;
+
+        return $this->execute($query);
+    }
 
     public function insert($values)
     {
