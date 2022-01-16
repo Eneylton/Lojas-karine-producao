@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Out-2021 às 14:34
+-- Tempo de geração: 16-Jan-2022 às 18:37
 -- Versão do servidor: 10.4.17-MariaDB
 -- versão do PHP: 7.4.14
 
@@ -41,6 +41,20 @@ INSERT INTO `acessos` (`id`, `nivel`) VALUES
 (2, 'Assitente'),
 (3, 'Coordenador'),
 (4, 'Auxiliar');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `caixa`
+--
+
+CREATE TABLE `caixa` (
+  `id` int(11) NOT NULL,
+  `data` timestamp NULL DEFAULT current_timestamp(),
+  `valor` decimal(10,2) DEFAULT NULL,
+  `forma_pagamento_id` int(11) NOT NULL,
+  `usuarios_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -148,7 +162,8 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`id`, `data`, `nome`, `telefone`, `email`, `cep`, `localidade`, `logradouro`, `numero`, `bairro`, `complemento`, `uf`) VALUES
 (15, '2021-09-12 15:30:02', 'Eneylton Barros', '(98) 99158-1962', 'eneylton@hotmail.com', '65054-530', 'São Luís', 'Rua 03', '12', 'Cohtrac IV', 'Proximo a praça verão', 'MA'),
 (16, '2021-09-12 15:31:47', 'Livia Jansen', '(98) 99158-1962', 'eneylton@hotmail.com', '65054530', 'São luis', 'Rua Três', '12', 'Cohatrac IV', 'Proximo a praça verão', 'Maranhão'),
-(17, '2021-10-17 22:19:17', 'Karina Modas', '(98) 99158-1962', 'karina@gmail.com', '65054780', 'São Luís', 'Rua Vinte e Seis', '14', 'Cohatrac IV', 'Proximo a praça verão', 'MA');
+(17, '2021-10-17 22:19:17', 'Karina Modas', '(98) 99158-1962', 'karina@gmail.com', '65054780', 'São Luís', 'Rua Vinte e Seis', '14', 'Cohatrac IV', 'Proximo a praça verão', 'MA'),
+(18, '2022-01-16 16:08:30', 'CLIENTE', '(98) 9915-8196', 'cliente@hotmail.com', '65054530', 'São Luís', 'Rua Três', '14', 'Cohatrac IV', '', 'MA');
 
 -- --------------------------------------------------------
 
@@ -190,25 +205,9 @@ CREATE TABLE `movimentacoes` (
   `status` int(11) DEFAULT NULL,
   `usuarios_id` int(11) NOT NULL,
   `catdespesas_id` int(11) NOT NULL,
-  `forma_pagamento_id` int(11) NOT NULL
+  `forma_pagamento_id` int(11) NOT NULL,
+  `caixa_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `movimentacoes`
---
-
-INSERT INTO `movimentacoes` (`id`, `data`, `troco`, `valor`, `descricao`, `tipo`, `status`, `usuarios_id`, `catdespesas_id`, `forma_pagamento_id`) VALUES
-(28, '2021-10-12 03:12:52', '0.00', '21.00', 'Produto foi vendido...', 0, 1, 4, 1, 2),
-(29, '2021-10-12 03:13:32', '0.50', '11.00', 'Produto foi vendido...', 0, 1, 4, 1, 5),
-(30, '2021-10-12 03:16:55', '0.00', '80.00', 'Produto foi vendido...', 0, 1, 4, 1, 2),
-(31, '2021-10-17 18:57:10', '0.00', '10.50', 'Pagamento de conta de luz ', 0, 1, 4, 1, 2),
-(32, '2021-10-17 21:37:40', '0.00', '80.00', 'Produto foi vendido...', 0, 1, 4, 15, 2),
-(33, '2021-10-17 22:20:56', '1.00', '100.00', 'Produto foi vendido...', 1, 1, 4, 15, 2),
-(34, '2021-10-17 22:28:58', '2.00', '370.00', 'Produto foi vendido...', 1, 1, 4, 15, 2),
-(35, '2021-10-18 12:10:14', '10.00', '90.00', 'Produto foi vendido...', 1, 1, 4, 15, 2),
-(36, '2021-10-18 12:15:40', '0.00', '150.00', 'Pagamento mterial para escritorio', 0, 1, 4, 3, 2),
-(37, '2021-10-18 12:17:13', '0.00', '200.00', 'Pagamento de conts', 0, 1, 4, 11, 2),
-(38, '2021-10-18 12:29:25', '4.01', '320.00', 'Produto foi vendido...', 1, 1, 4, 15, 3);
 
 -- --------------------------------------------------------
 
@@ -499,7 +498,7 @@ INSERT INTO `produtos` (`id`, `barra`, `codigo`, `nome`, `qtd`, `valor_compra`, 
 (2181, '7909386273097', 0, 'Bermuda masc. Hering ', 1, '55.00', '110.00', 250, 0, './imgs/a9dceb27-48da-4a8a-a145-7e35dfc9d560.jfif', '2021-10-17 22:20:00', 16, 90, 'TAM: 40'),
 (2182, '7909386273110', 0, 'Bermuda masc. Hering ', 1, '55.00', '110.00', 1, 0, './imgs/a9dceb27-48da-4a8a-a145-7e35dfc9d560-1.jfif', '2021-08-27 17:25:24', 16, 90, 'TAM: 44'),
 (2183, '2163300001', 0, 'Bermuda jeans biotipo masc.', 1, '0.00', '82.00', 4, 0, './imgs/2021-08-27_15_02_28.jpg', '2021-08-27 18:02:28', 7, 90, 'Tam 42-2/38-1/40-1'),
-(2184, '2160700001', 0, 'Bermuda jeans bio tipo masc', 1, '0.00', '89.00', 2, 1, './imgs/2021-08-27_15_06_42.jpg', '2021-08-27 18:06:42', 4, 90, 'Tam 42-2'),
+(2184, '2160700001', 0, 'Bermuda jeans bio tipo masc', 1, '0.00', '89.00', 1, 1, './imgs/2021-08-27_15_06_42.jpg', '2022-01-16 17:20:00', 4, 90, 'Tam 42-2'),
 (2185, '7909299005945', 0, 'Bermuda masc. Hering ', 1, '50.00', '109.00', 1, 0, './imgs/69c353dd-5625-4e60-b5a0-37615252ba45.jfif', '2021-08-27 18:10:24', 16, 90, 'TAM: 40'),
 (2186, '7909299005945', 0, 'Bermuda masc. Hering ', 1, '50.00', '109.00', 1, 0, './imgs/69c353dd-5625-4e60-b5a0-37615252ba45-1.jfif', '2021-08-27 18:12:35', 16, 90, 'TAM: 38'),
 (2187, '7909299667594', 0, 'Bermuda masc. Hering ', 1, '40.00', '88.00', 1, 0, './imgs/35011857-fa0a-4958-beee-19769f93dbd6.jfif', '2021-08-27 18:30:01', 16, 90, 'TAM: 40 BRANCA'),
@@ -540,7 +539,7 @@ INSERT INTO `produtos` (`id`, `barra`, `codigo`, `nome`, `qtd`, `valor_compra`, 
 (2222, '7909457272370', 2147483647, 'FLORAL VERMELHO E BRANCO', 1, '50.00', '79.00', 1, 0, './imgs/FLORAL VERMELHO E BRANCO-2.jfif', '2021-08-30 14:02:22', 16, 93, 'XG'),
 (2223, '10000090947289', 2147483647, 'COTON EVASE', 1, '50.00', '88.00', 1, 0, './imgs/COTON EVASE.jfif', '2021-08-30 14:28:48', 16, 93, 'PP'),
 (2224, '10000090947096', 2147483647, 'COTON EVASE', 1, '50.00', '88.00', 1, 0, './imgs/COTON EVASE-1.jfif', '2021-08-30 14:29:30', 16, 93, 'M'),
-(2225, 'LM0009148968', 0, 'ANIMAL PRINT HERING', 1, '50.00', '80.00', 4, 0, './imgs/ZEBRA MARROM.jfif', '2021-10-18 12:10:00', 16, 93, 'M'),
+(2225, 'LM0009148968', 0, 'ANIMAL PRINT HERING', 1, '50.00', '80.00', 2, 0, './imgs/ZEBRA MARROM.jfif', '2021-10-18 21:04:00', 16, 93, 'M'),
 (2226, '10000244503971', 2147483647, 'POA VERDE, AZUL, PRETO', 1, '50.00', '129.00', 1, 0, './imgs/POA VERDE, AZUL, PRETO.jfif', '2021-08-30 14:31:56', 16, 93, 'M'),
 (2227, '7909299258662', 2147483647, 'FLOR AZUL E PRETO', 1, '50.00', '108.00', 1, 0, './imgs/BRANCO FLOR AZUL.jfif', '2021-08-30 14:33:00', 16, 93, 'G'),
 (2228, '7909299258655', 0, 'FLOR AZUL E PRETO', 1, '50.00', '108.00', 1, 0, './imgs/BRANCO FLOR AZUL-1.jfif', '2021-08-30 14:33:48', 16, 93, 'M'),
@@ -905,7 +904,7 @@ INSERT INTO `produtos` (`id`, `barra`, `codigo`, `nome`, `qtd`, `valor_compra`, 
 (2588, '7909021537461', 0, 'Camisa polo masc. HERING ', 1, '0.00', '82.00', 1, 1, './imgs/2021-09-06_09_27_16.jpg', '2021-09-06 12:27:16', 4, 91, 'Tam: P'),
 (2589, '7909021833846', 0, 'Camisa polo masc. Hering', 1, '0.00', '76.00', 1, 1, './imgs/2021-09-06_09_43_26.jpg', '2021-09-06 12:43:27', 4, 91, 'Tam: p'),
 (2590, '7890999853397', 0, 'Camisa polo MASC.HERING ', 1, '0.00', '54.00', 1, 1, './imgs/2021-09-06_09_45_01.jpg', '2021-09-06 12:45:01', 4, 91, 'Tam: p'),
-(2591, '7909386408147', 0, '', 1, '0.00', '78.00', 1, 1, './imgs/2021-09-06_09_46_37.jpg', '2021-09-06 12:46:37', 4, 91, 'Tam: xxg'),
+(2591, '7909386408147', 0, '', 1, '0.00', '78.00', -2, 1, './imgs/2021-09-06_09_46_37.jpg', '2022-01-11 22:41:00', 4, 91, 'Tam: xxg'),
 (2592, '7909386407997', 0, 'Camisa polo MASC.HERING ', 1, '0.00', '76.00', 1, 1, './imgs/2021-09-06_09_48_52.jpg', '2021-09-06 12:48:52', 4, 91, 'Tam: xxg'),
 (2593, '7909299252875', 0, 'Camisa polo masc. Hering', 1, '0.00', '92.00', 1, 1, './imgs/2021-09-06_09_50_42.jpg', '2021-09-06 12:50:42', 4, 91, 'Tam: p'),
 (2594, '7891702516295', 0, 'Camisa polo masc. Hering', 1, '0.00', '68.00', 1, 1, './imgs/2021-09-06_09_52_18.jpg', '2021-09-06 12:52:18', 4, 91, 'Tam: p'),
@@ -1261,7 +1260,7 @@ INSERT INTO `produtos` (`id`, `barra`, `codigo`, `nome`, `qtd`, `valor_compra`, 
 (2949, 'Cl1014', 0, 'Calça masc. Biotipo', 1, '60.00', '120.00', 1, 1, './imgs/2021-09-28_11_32_15.jpg', '2021-09-28 14:32:15', 4, 92, 'Tam: 40'),
 (2950, 'Cl1015', 0, 'Calça masc. Hering', 1, '60.00', '120.00', 1, 1, './imgs/2021-09-28_11_36_44.jpg', '2021-09-28 14:36:44', 4, 92, 'Tam: 38'),
 (2951, '7909021812964', 0, 'Calça masc. HERING ', 1, '60.00', '120.00', 1, 1, './imgs/2021-09-28_11_39_55.jpg', '2021-09-28 14:39:55', 4, 92, 'Tam: 36 carrot'),
-(2952, '7909173228033', 0, ' Calça masc. HERING ', 1, '60.00', '120.00', 3, 1, './imgs/2021-09-28_15_51_09.jpg', '2021-09-28 18:51:09', 4, 92, 'Tam: 36/38 jeans'),
+(2952, '7909173228033', 0, ' Calça masc. HERING ', 1, '60.00', '120.00', 2, 1, './imgs/2021-09-28_15_51_09.jpg', '2022-01-11 22:58:00', 4, 92, 'Tam: 36/38 jeans'),
 (2953, '7909112764196', 0, 'Calça masc. HERING ', 1, '60.00', '120.00', 2, 1, './imgs/2021-09-28_15_53_07.jpg', '2021-09-28 18:53:07', 4, 92, 'Tam: 36 jeans'),
 (2954, 'Cl1016', 0, 'Calça MASC.HERING ', 1, '60.00', '120.00', 1, 1, './imgs/2021-09-28_15_57_57.jpg', '2021-09-28 18:57:57', 4, 92, 'Tam: 36 jeans azul basica '),
 (2955, 'Cl1017', 0, 'Calça masc. HERING ', 1, '60.00', '120.00', 2, 1, './imgs/2021-09-28_16_00_58.jpg', '2021-09-28 19:00:58', 4, 92, 'Tam: 38'),
@@ -1333,7 +1332,7 @@ INSERT INTO `produtos` (`id`, `barra`, `codigo`, `nome`, `qtd`, `valor_compra`, 
 (3021, 'Cl1045', 0, 'CALÇA fem. Biotipo', 1, '65.00', '130.00', 1, 1, './imgs/2021-09-30_16_06_35.jpg', '2021-09-30 19:06:35', 4, 105, 'Tam: 46'),
 (3022, '1859200001', 0, 'Calça fem. BIOTIPO ', 1, '70.00', '140.00', 1, 1, './imgs/2021-09-30_16_10_24.jpg', '2021-09-30 19:10:24', 4, 105, 'Tam: 46'),
 (3023, '2254300001', 0, 'Calça fem. BIOTIPO ', 1, '45.00', '99.00', 1, 1, './imgs/2021-09-30_16_13_18.jpg', '2021-09-30 19:13:18', 4, 105, 'Tam: 36'),
-(3024, '2332700001', 0, ' Calça fem. Biotipo', 1, '60.00', '120.00', 3, 1, './imgs/2021-09-30_16_17_16.jpg', '2021-09-30 19:17:16', 4, 105, 'Tam: 40/42 jeans claro'),
+(3024, '2332700001', 0, ' Calça fem. Biotipo', 1, '60.00', '120.00', 1, 1, './imgs/2021-09-30_16_17_16.jpg', '2022-01-16 16:49:00', 4, 105, 'Tam: 40/42 jeans claro'),
 (3025, '2337400001', 0, 'Calça fem. BIOTIPO ', 1, '60.00', '120.00', 1, 1, './imgs/2021-09-30_16_25_41.jpg', '2021-09-30 19:25:41', 4, 105, 'Tam: 46'),
 (3026, '2338000001', 0, 'Calça fem. BIOTIPO ', 1, '60.00', '120.00', 2, 1, './imgs/2021-09-30_16_28_26.jpg', '2021-09-30 19:28:26', 4, 105, 'Tam: 44/46'),
 (3027, '2251400001', 0, 'Calça fem. BIOTIPO ', 1, '65.00', '130.00', 3, 1, './imgs/2021-09-30_16_33_48.jpg', '2021-09-30 19:33:48', 4, 105, 'Tam: 42/46'),
@@ -1569,14 +1568,11 @@ CREATE TABLE `produto_venda` (
 --
 
 INSERT INTO `produto_venda` (`id`, `data`, `codigo`, `qtd`, `valor`, `produtos_id`, `clientes_id`, `forma_pagamento_id`) VALUES
-(1, '2021-10-17 21:37:29', 659585, 1, '80.00', 2225, 15, 2),
-(2, '2021-10-17 22:20:56', 291320, 1, '110.00', 2181, 17, 8),
-(3, '2021-10-17 22:28:58', 133257, 2, '280.00', 2938, 17, 6),
-(4, '2021-10-17 22:28:58', 488750, 1, '88.00', 2645, 17, 6),
-(5, '2021-10-18 12:10:14', 363738, 1, '80.00', 2225, 16, 2),
-(6, '2021-10-18 12:29:25', 828641, 1, '49.99', 2364, 15, 3),
-(7, '2021-10-18 12:29:25', 656857, 2, '90.00', 2653, 15, 3),
-(8, '2021-10-18 12:29:25', 465515, 2, '176.00', 2509, 15, 3);
+(10, '2022-01-11 22:41:41', 709441, 3, '234.00', 2591, 15, 8),
+(11, '2022-01-11 22:49:06', 925470, 1, '120.00', 3024, 15, 2),
+(12, '2022-01-11 22:58:40', 191347, 1, '120.00', 2952, 15, 2),
+(13, '2022-01-16 16:49:46', 142233, 1, '120.00', 3024, 18, 2),
+(14, '2022-01-16 17:20:32', 163352, 1, '89.00', 2184, 18, 2);
 
 -- --------------------------------------------------------
 
@@ -1645,27 +1641,7 @@ CREATE TABLE `vendas` (
 --
 
 INSERT INTO `vendas` (`id`, `data`, `codigo`, `recebido`, `troco`, `usuarios_id`, `clientes_id`, `forma_pagamento_id`, `tipo_id`, `mov_cat_id`) VALUES
-(89, '2021-10-11 00:55:06', 476614, '40.00', '4.53', 4, 16, 2, 1, 1),
-(90, '2021-10-11 00:56:22', 105084, '10.00', '0.55', 4, 15, 2, 1, 1),
-(91, '2021-10-11 01:03:09', 420211, '67.00', '0.55', 4, 15, 2, 1, 1),
-(92, '2021-10-11 01:05:20', 135827, '81.00', '0.00', 4, 16, 5, 1, 1),
-(93, '2021-10-12 02:27:31', 146910, '11.00', '0.50', 4, 15, 2, 1, 1),
-(94, '2021-10-12 02:28:28', 135512, '35.00', '5.00', 4, 15, 3, 1, 1),
-(95, '2021-10-12 02:33:58', 100393, '11.00', '0.50', 4, 15, 2, 1, 1),
-(96, '2021-10-12 02:34:33', 207897, '35.00', '5.00', 4, 16, 8, 1, 1),
-(97, '2021-10-12 02:35:17', 953341, '41.00', '0.50', 4, 16, 5, 1, 1),
-(98, '2021-10-12 02:40:37', 178390, '10.00', '0.55', 4, 15, 2, 1, 1),
-(99, '2021-10-12 02:41:30', 382466, '25.00', '1.00', 4, 15, 4, 1, 1),
-(100, '2021-10-12 02:51:08', 109025, '30.00', '0.00', 4, 16, 6, 1, 1),
-(101, '2021-10-12 02:52:15', 166333, '11.00', '0.50', 4, 15, 8, 1, 1),
-(102, '2021-10-12 03:12:52', 195698, '21.00', '0.00', 4, 15, 8, 1, 1),
-(103, '2021-10-12 03:13:32', 576211, '11.00', '0.50', 4, 16, 2, 1, 1),
-(104, '2021-10-12 03:16:55', 162953, '10.50', '0.00', 4, 15, 4, 1, 1),
-(105, '2021-10-17 21:37:35', 659585, '80.00', '0.00', 4, 15, 2, 1, 1),
-(106, '2021-10-17 22:20:56', 291320, '100.00', '1.00', 4, 17, 8, 1, 1),
-(107, '2021-10-17 22:28:58', 488750, '370.00', '2.00', 4, 17, 6, 1, 1),
-(108, '2021-10-18 12:10:14', 363738, '90.00', '10.00', 4, 16, 2, 1, 1),
-(109, '2021-10-18 12:29:25', 465515, '320.00', '4.01', 4, 15, 3, 1, 1);
+(115, NULL, 163352, '89.00', '0.00', 4, 18, 2, 1, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -1676,6 +1652,14 @@ INSERT INTO `vendas` (`id`, `data`, `codigo`, `recebido`, `troco`, `usuarios_id`
 --
 ALTER TABLE `acessos`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `caixa`
+--
+ALTER TABLE `caixa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_caixa_forma_pagamento1_idx` (`forma_pagamento_id`),
+  ADD KEY `fk_caixa_usuarios1_idx` (`usuarios_id`);
 
 --
 -- Índices para tabela `cargos`
@@ -1715,7 +1699,8 @@ ALTER TABLE `movimentacoes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_movimentacoes_usuarios1_idx` (`usuarios_id`),
   ADD KEY `fk_movimentacoes_catdespesas1_idx` (`catdespesas_id`),
-  ADD KEY `fk_movimentacoes_forma_pagamento1_idx` (`forma_pagamento_id`);
+  ADD KEY `fk_movimentacoes_forma_pagamento1_idx` (`forma_pagamento_id`),
+  ADD KEY `fk_movimentacoes_caixa1_idx` (`caixa_id`);
 
 --
 -- Índices para tabela `mov_cat`
@@ -1777,6 +1762,12 @@ ALTER TABLE `acessos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `caixa`
+--
+ALTER TABLE `caixa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT de tabela `cargos`
 --
 ALTER TABLE `cargos`
@@ -1798,7 +1789,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `forma_pagamento`
@@ -1810,7 +1801,7 @@ ALTER TABLE `forma_pagamento`
 -- AUTO_INCREMENT de tabela `movimentacoes`
 --
 ALTER TABLE `movimentacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de tabela `mov_cat`
@@ -1828,7 +1819,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `produto_venda`
 --
 ALTER TABLE `produto_venda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `tipo`
@@ -1846,19 +1837,27 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- Restrições para despejos de tabelas
 --
 
 --
+-- Limitadores para a tabela `caixa`
+--
+ALTER TABLE `caixa`
+  ADD CONSTRAINT `fk_caixa_forma_pagamento1` FOREIGN KEY (`forma_pagamento_id`) REFERENCES `forma_pagamento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_caixa_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Limitadores para a tabela `movimentacoes`
 --
 ALTER TABLE `movimentacoes`
-  ADD CONSTRAINT `fk_movimentacoes_catdespesas1` FOREIGN KEY (`catdespesas_id`) REFERENCES `catdespesas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimentacoes_forma_pagamento1` FOREIGN KEY (`forma_pagamento_id`) REFERENCES `forma_pagamento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimentacoes_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_movimentacoes_caixa1` FOREIGN KEY (`caixa_id`) REFERENCES `caixa` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimentacoes_catdespesas1` FOREIGN KEY (`catdespesas_id`) REFERENCES `catdespesas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimentacoes_forma_pagamento1` FOREIGN KEY (`forma_pagamento_id`) REFERENCES `forma_pagamento` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimentacoes_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `produto_venda`
